@@ -5,3 +5,5 @@
 1) Исходный java файл и откомпилированный class файл должны быть «вкомитаны» в GIT;
 2) Использование для выполнения любых IDE не допускается;
 3) Для вывода сообщения использовать - System.out.printin("Hello Java!").
+# Выполнение :
+![](https://github.com/nekruz03/Senla-Courses/blob/Task-2/Task-2/1/image.png)
