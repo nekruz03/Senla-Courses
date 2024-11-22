@@ -6,10 +6,11 @@
 
 # BlueJ files
 *.ctxt
-
+.idea
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
+git.iml
+Senla-Courses.iml
 # Package Files #
 *.jar
 *.war
