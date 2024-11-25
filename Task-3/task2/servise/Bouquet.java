@@ -8,7 +8,6 @@ public class Bouquet {
     private   double solvedPrise;
     List<Flower> flowerArrayList = new ArrayList<>();
     List<Integer> countArraylist = new ArrayList<>();
-    Flower flower ;
     public void addFlower(Flower flower, int count) {
         flowerArrayList.add(flower);
         countArraylist.add(count);
@@ -16,8 +15,7 @@ public class Bouquet {
     }
     public double colculatePrise(){
         for (int i = 0; i < flowerArrayList.size(); i++) {
-            flower = flowerArrayList.get(i);
-            solvedPrise = solvedPrise + flower.getPrice() * countArraylist.get(i);
+            solvedPrise = solvedPrise +flowerArrayList.get(i).getPrice() * countArraylist.get(i);
         }
        return solvedPrise;
     }
