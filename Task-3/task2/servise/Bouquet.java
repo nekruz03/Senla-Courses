@@ -1,22 +1,26 @@
 package servise;
-
 import model.Flower;
-
+import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.List;
 public class Bouquet {
     private String history="";
     private   double solvedPrise;
-    HashMap <Flower,Integer> flowersHashMap = new HashMap<>();
+    List<Flower> flowerArrayList = new ArrayList<>();
+    List<Integer> countArraylist = new ArrayList<>();
+    HashMap
+    Flower flower ;
     public void addFlower(Flower flower, int count) {
-      flowersHashMap.put( flower,count );
-      history = history + (flower + " " + count + " pcs \n");
+        flowerArrayList.add(flower);
+        countArraylist.add(count);
+         history = history + (flower + " " + count + " pcs \n");
     }
     public double colculatePrise(){
-        for(Flower i : flowersHashMap.keySet()){
-            solvedPrise = solvedPrise + i.getPrice() *  flowersHashMap.get(i);
+        for (int i = 0; i < flowerArrayList.size(); i++) {
+            flower = flowerArrayList.get(i);
+            solvedPrise = solvedPrise + flower.getPrice() * countArraylist.get(i);
         }
-        return solvedPrise;
+       return solvedPrise;
     }
     public String getHistory() {
         return history;
