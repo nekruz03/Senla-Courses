@@ -8,7 +8,6 @@ public class Bouquet {
     private   double solvedPrise;
     List<Flower> flowerArrayList = new ArrayList<>();
     List<Integer> countArraylist = new ArrayList<>();
-    HashMap
     Flower flower ;
     public void addFlower(Flower flower, int count) {
         flowerArrayList.add(flower);
