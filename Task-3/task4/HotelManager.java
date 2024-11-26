@@ -1,41 +1,32 @@
+import Enums.RoomStatus;
+import Enums.RoomType;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class HotelManager {
     public static void main(String[] args) {
-        System.out.println("Hello, welcome!");
         RoomManager roomManager = new RoomManager();
         Command command = new Command(roomManager);
-        Scanner input = new Scanner(System.in);
-        while (true) {
-            System.out.println("Please select action:");
-            System.out.println("1. Add Room");
-            System.out.println("2. Change Room Price");
-            System.out.println("3. Change Room Type");
-            System.out.println("4. Delete Room");
-            System.out.println("5. Change Room Status");
-            System.out.println("6. Display Rooms");
-            System.out.println("7. Check-in Guest");
-            System.out.println("8. Check-out Guest");
-            System.out.println("9. Exit");
-            int choice = input.nextInt();
 
-            switch (choice) {
-                case 1 -> command.addRoom();
-                case 2 -> command.changePrice();
-                case 3 -> command.changeType();
-                case 4 -> command.deleteRoom();
-                case 5 -> command.changeRoomStatus();
-                case 6 -> command.display();
-                case 7 -> command.chekIn();
-                case 8 -> command.checkOut();
-                case 9 -> {
-                    System.out.println("Goodbye!");
-                    return;
-                }
-                default -> System.out.println("Invalid choice! Please try again.");
-            }
+        // Добавляем комнаты
+        command.addRoom(1, RoomType.STANDARD, RoomStatus.SERVICED, 100.0);
+        command.addRoom(2, RoomType.DELUXE, RoomStatus.REPAIRABLE, 200.0);
+        command.addRoom(3, RoomType.VIP, RoomStatus.SERVICED, 500.0);
+        command.addRoom(4, RoomType.DELUXE, RoomStatus.SERVICED, 250.0);
+        // Изменяем цену комнаты
+        command.changePrice(1, 150.0);
+        // Изменяем тип комнаты
+        command.changeType(2, RoomType.VIP);
+        // Заселяем гостя
+        command.checkIn(2, "ANDREY", "123456");
+        // Выселяем гостя
+        command.checkOut(2);
+        // Удаляем комнату
+        command.deleteRoom(1);
+
+        // Выводим все комнаты
+        ArrayList<Room> rooms = command.display();
+        for (Room room : rooms) {
+            System.out.println(room);
         }
     }
 }
