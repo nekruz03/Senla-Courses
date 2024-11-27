@@ -20,6 +20,9 @@ public class HotelManager {
         command.checkIn(2, "ANDREY", "123456");
         // Выселяем гостя
         command.checkOut(2);
+        // Изменяем статус комнаты
+        command.changeStatus(2, RoomStatus.SERVICED);
+        command.changeStatus(3, RoomStatus.REPAIRABLE);
         // Удаляем комнату
         command.deleteRoom(1);
 

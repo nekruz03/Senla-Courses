@@ -1,5 +1,3 @@
-package АssemblyStages;
-
 import bodyes.Motherboard;
 import interfaces.ILineStep;
 import interfaces.IProductPart;

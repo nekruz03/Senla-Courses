@@ -1,5 +1,3 @@
-package АssemblyStages;
-
 import bodyes.LaptopBody;
 import interfaces.ILineStep;
 import interfaces.IProductPart;

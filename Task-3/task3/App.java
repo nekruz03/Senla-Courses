@@ -2,8 +2,6 @@ import bodyes.LaptopMonitorStep;
 import interfaces.IAssemblyLine;
 import interfaces.ILineStep;
 import interfaces.IProduct;
-import АssemblyStages.LaptopBodyStep;
-import АssemblyStages.MotherboardStep;
 
 public class App {
     public static void main(String[] args) {

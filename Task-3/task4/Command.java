@@ -22,6 +22,9 @@ public class Command {
     public void deleteRoom(int roomNumber) {
         roomManager.deleteRoom(roomNumber);
     }
+    public void changeStatus(int roomNumber, RoomStatus roomStatus) {
+        roomManager.getRooms().get(roomNumber).setRoomStatus(roomStatus);
+    }
     public void checkIn(int roomNumber, String guestName, String passportNumber) {
         Room room = roomManager.getRooms().get(roomNumber);
         if (room != null) {
