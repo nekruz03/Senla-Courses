@@ -1,6 +1,7 @@
 import Enums.RoomStatus;
 import Enums.RoomType;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Command {
     private RoomManager roomManager;
@@ -8,75 +9,46 @@ public class Command {
     public Command(RoomManager roomManager) {
         this.roomManager = roomManager;
     }
-
     public void addRoom(int roomNumber, RoomType roomType, RoomStatus roomStatus, double price) {
         Room room = new Room(roomNumber, roomType, roomStatus, price);
-        roomManager.addToListRoom(room);
+        roomManager.addMapRoom(roomNumber, room);
     }
-
     public void changePrice(int roomNumber, double price) {
-        ArrayList<Room> rooms = roomManager.getRooms();
-        for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNumber) {
-                room.setPrise(price);
-                return;
-            }
-        }
+        roomManager.getRooms().get(roomNumber).setPrise(price);;
     }
-
     public void changeType(int roomNumber, RoomType roomType) {
-        ArrayList<Room> rooms = roomManager.getRooms();
-        for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNumber) {
-                room.setRoomType(roomType);
-                return;
-            }
-        }
+       roomManager.getRooms().get(roomNumber).setRoomType(roomType);
     }
-
     public void deleteRoom(int roomNumber) {
-        ArrayList<Room> rooms = roomManager.getRooms();
-        rooms.removeIf(room -> room.getRoomNumber() == roomNumber);
+        roomManager.deleteRoom(roomNumber);
     }
-
-    public void changeRoomStatus(int roomNumber, RoomStatus roomStatus) {
-        ArrayList<Room> rooms = roomManager.getRooms();
-        for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNumber) {
-                room.setRoomStatus(roomStatus);
-                return;
-            }
-        }
-    }
-
     public void checkIn(int roomNumber, String guestName, String passportNumber) {
-        ArrayList<Room> rooms = roomManager.getRooms();
-        for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNumber) {
-                if (room.isOccupied() || room.getRoomStatus() == RoomStatus.REPAIRABLE) {
-                    return;
-                }
-                room.setOccupied(true);
-                room.setGuestName(guestName);
-                room.setPassportNumber(passportNumber);
+        Room room = roomManager.getRooms().get(roomNumber);
+        if (room != null) {
+            if (room.isOccupied() || room.getRoomStatus() == RoomStatus.REPAIRABLE) {
+                System.out.println("Room is already occupied or under repair.");
                 return;
             }
+            room.setOccupied(true);
+            room.setGuestName(guestName);
+            room.setPassportNumber(passportNumber);
+        } else {
+            System.out.println("Room with number " + roomNumber + " does not exist.");
         }
     }
 
     public void checkOut(int roomNumber) {
-        ArrayList<Room> rooms = roomManager.getRooms();
-        for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNumber) {
-                room.setOccupied(false);
-                room.setGuestName(null);
-                room.setPassportNumber(null);
-                return;
-            }
+        Room room = roomManager.getRooms().get(roomNumber);
+        if (room != null) {
+            room.setOccupied(false);
+            room.setGuestName(null);
+            room.setPassportNumber(null);
+        } else {
+            System.out.println("Room with number " + roomNumber + " does not exist.");
         }
     }
 
     public ArrayList<Room> display() {
-        return roomManager.getRooms();
+        return new ArrayList<>(roomManager.getRooms().values());
     }
 }

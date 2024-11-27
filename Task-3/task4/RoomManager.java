@@ -1,11 +1,17 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RoomManager {
-    private ArrayList<Room> rooms = new ArrayList<>();
-    public ArrayList<Room> getRooms() {
+    private HashMap<Integer, Room> rooms = new HashMap<>();
+
+    public HashMap<Integer, Room> getRooms() {
         return rooms;
     }
-    public void addToListRoom(Room room) {
-         rooms.add(room);
+
+    public void addMapRoom(int number, Room room) {
+        rooms.put(number, room);
+    }
+
+    public void deleteRoom(int roomNumber) {
+        rooms.remove(roomNumber);
     }
 }
