@@ -1,7 +1,6 @@
 package servise;
-import model.Flower;
+import Model.Flower;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 public class Bouquet {
     private String history="";

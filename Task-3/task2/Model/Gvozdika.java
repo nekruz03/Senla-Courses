@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 public class Gvozdika extends Flower {
     public Gvozdika(){
