@@ -16,9 +16,9 @@ public enum ServiceType {
     public double getPrise() {
         return prise;
     }
-    private static final ArrayList<ServiceType> serviceTypeList = new ArrayList<>(List.of(ServiceType.values()));
+    private static final List<ServiceType> serviceTypeList = new ArrayList<>(List.of(ServiceType.values()));
 
-    public static  ArrayList<ServiceType> getServiceTypeList() {
+    public static  List<ServiceType> getServiceTypeList() {
         return serviceTypeList;
     }
 }

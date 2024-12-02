@@ -68,15 +68,15 @@ public class Command {
             System.out.println("Room with number " + roomNumber + " does not exist.");
         }
     }
-    public ArrayList<Room> getListOfAvailableRooms(){
-        ArrayList<Room> rooms = new ArrayList<>();
+    public List<Room> getListOfAvailableRooms(){
+        List<Room> rooms = new ArrayList<>();
         for (Room room : roomManager.getRooms().values()){
             if (!room.isOccupied()) rooms.add(room);
         }
         return rooms;
     }
-    public ArrayList<Room> getListOfGuests(){
-        ArrayList<Room> rooms = new ArrayList<>();
+    public List<Room> getListOfGuests(){
+        List<Room> rooms = new ArrayList<>();
         for (Room room : roomManager.getRooms().values()){
             if (room.getGuestName() != null) rooms.add(room);
         }
@@ -84,7 +84,7 @@ public class Command {
     }
     public int numberOfFreeRooms(){
         int col  = 0 ;
-        ArrayList<Room>rooms = roomManager.getAllRooms();
+        List<Room>rooms = roomManager.getAllRooms();
         for (Room room : rooms){
             if (room.isOccupied()) col++;
         }
@@ -92,15 +92,15 @@ public class Command {
     }
     public int numberOfGuests(){
         int col  = 0 ;
-        ArrayList<Room>rooms = roomManager.getAllRooms();
+        List<Room>rooms = roomManager.getAllRooms();
         for (Room room : rooms){
             if (room.getGuestName() != null) col++;
         }
         return col;
     }
      public List<Room> getListOfVailableRoomsInDate(Date date){
-         ArrayList<Room> ans = new ArrayList<>();
-         ArrayList<Room> rooms = roomManager.getAllRooms();
+         List<Room> ans = new ArrayList<>();
+         List<Room> rooms = roomManager.getAllRooms();
         for (Room room : rooms){
             if (!room.isOccupied()){
               if (date.before(room.getDateOfOccupation())) ans.add(room);
@@ -126,12 +126,11 @@ public class Command {
        return (room.getPrise() + sum)* colDays;
      }
 
-     public ArrayList<Room> display() {
+     public List<Room> display() {
         return new ArrayList<>(roomManager.getRooms().values());
     }
     public List<Room> viewTheLastThreeGuests(){
         List<Room> lastThreeGuests = new ArrayList<>();
-        ArrayList<Room> ans = new ArrayList<>();
         for (int i = currentGuests.size() - 1; i >= 0 && lastThreeGuests.size() < 3; i--) {
             lastThreeGuests.add(currentGuests.get(i));
         }
@@ -141,5 +140,4 @@ public class Command {
         Room room = roomManager.getRooms().get(roomNumber);
         room.addServiceType(serviceType);
     }
-
 }

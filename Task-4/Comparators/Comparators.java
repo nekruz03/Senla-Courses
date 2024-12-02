@@ -47,8 +47,8 @@ public class Comparators {
            return Double.compare(o1.getPrise(), o2.getPrise());
        }
    };
-   public static <T> ArrayList<T>sortCollection(ArrayList<T> collection, Comparator<T> comparator) {
-      ArrayList<T> sorted = new ArrayList<>(collection);
+   public static <T> List<T>sortCollection(List<T> collection, Comparator<T> comparator) {
+      List<T> sorted = new ArrayList<>(collection);
       sorted.sort(comparator);
       return sorted;
    }

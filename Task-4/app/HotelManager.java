@@ -41,18 +41,16 @@ public class HotelManager {
             command.changeStatus(3, RoomStatus.REPAIRABLE);
             // Удаляем комнату
           // command.deleteRoom(1);
-            ArrayList<Room> rooms  = roomManager.getAllRooms();
-            ArrayList<Room> sorted = new ArrayList<>();
+            List<Room> rooms  = roomManager.getAllRooms();
+            List<Room> sorted = new ArrayList<>();
             // сортировка по цене
             sorted = sortCollection(rooms,Comparators.byPrise);
-
             // сортировка по вместимости
             sorted = sortCollection(rooms,comparators.byCapasity);
             //сортировка по количеству звезд
             sorted = sortCollection(rooms,comparators.byNumberOfStars);
-
             // Выводим всех занятых комнат
-            ArrayList<Room> listOfAvailableRooms = command.getListOfAvailableRooms();
+            List<Room> listOfAvailableRooms = command.getListOfAvailableRooms();
            // сортировка, список занятых номеров по цене
             sorted = sortCollection(listOfAvailableRooms,comparators.byPrise);
             // сортировка, список свобдобных номеров по вместимости
@@ -60,7 +58,7 @@ public class HotelManager {
             // сортировка, список свобдобных номеров по количеству звезд
             sorted = sortCollection(listOfAvailableRooms,comparators.byNumberOfStars);
            // получение список постоялцев
-              ArrayList<Room> getListOfGuests = command.getListOfGuests();
+            List<Room> getListOfGuests = command.getListOfGuests();
             // cортировка,список постоялцев по алфавиту
             sorted = sortCollection(getListOfGuests,comparators.byName);
             //сортировка по дате выселение
@@ -73,17 +71,19 @@ public class HotelManager {
             command.addingAdditionalServices(2, List.of(new ServiceType[]{ServiceType.CLEANING,ServiceType.BREAKFAST}));
             command.addingAdditionalServices(3, List.of(new ServiceType[]{ServiceType.SPA}));
             // cсписок номеров, которые будут свободными по определенном дате
-            ArrayList<Room> tmp = (ArrayList<Room>) command.getListOfVailableRoomsInDate(dateFormat.parse("01.11.2024"));
+            List<Room> tmp = (ArrayList<Room>) command.getListOfVailableRoomsInDate(dateFormat.parse("01.11.2024"));
             //сумма за номер , должен оплатить гость
             command.addingAdditionalServices(1, List.of(new ServiceType[]{ServiceType.CLEANING,ServiceType.BREAKFAST}));
             double  a = command.priseColculation(1);
             // посмотр 3 последних гостей, номера и дата их прибывание
-             ArrayList<Room> cur = (ArrayList<Room>) command.viewTheLastThreeGuests();
-
+             List<Room> cur = (ArrayList<Room>) command.viewTheLastThreeGuests();
             //сортировка доп услуг по цене
-            ArrayList<ServiceType> serviceTypes = ServiceType.getServiceTypeList();
-            ArrayList <ServiceType> sortedServiceTypes = new ArrayList<>();
+            List<ServiceType> serviceTypes = ServiceType.getServiceTypeList();
+            List <ServiceType> sortedServiceTypes = new ArrayList<>();
             sortedServiceTypes  = sortCollection(serviceTypes,comparators.bуServicePrise);
+//            for (ServiceType serviceType : sortedServiceTypes) {
+//                    System.out.println( serviceType.toString() + " " +  serviceType.getPrise());
+//            }
 
     }
 }
