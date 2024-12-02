@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import static Comparators.Comparators.sortCollection;
 
 public class HotelManager {
     public static void main(String[] args) throws Exception {
@@ -40,32 +40,35 @@ public class HotelManager {
             command.checkIn(2,"Nikita","344531",dateFormat.parse("5.11.2024"),dateFormat.parse("6.11.2024"));
             command.changeStatus(3, RoomStatus.REPAIRABLE);
             // Удаляем комнату
-          //  command.deleteRoom(1);
-            ArrayList<Room> sortedRooms  = roomManager.getAllRooms();
+          // command.deleteRoom(1);
+            ArrayList<Room> rooms  = roomManager.getAllRooms();
+            ArrayList<Room> sorted = new ArrayList<>();
             // сортировка по цене
-            sortedRooms.sort(comparators.byPrise);
+            sorted = sortCollection(rooms,Comparators.byPrise);
+
             // сортировка по вместимости
-            sortedRooms.sort(comparators.byCapasity);
+            sorted = sortCollection(rooms,comparators.byCapasity);
             //сортировка по количеству звезд
-            sortedRooms.sort(comparators.byNumberOfStars);
-            // Выводим все комнаты
+            sorted = sortCollection(rooms,comparators.byNumberOfStars);
+
+            // Выводим всех занятых комнат
             ArrayList<Room> listOfAvailableRooms = command.getListOfAvailableRooms();
-            // сортировка, список свободных номеров по цене
-            listOfAvailableRooms.sort(comparators.byPrise);
+           // сортировка, список занятых номеров по цене
+            sorted = sortCollection(listOfAvailableRooms,comparators.byPrise);
             // сортировка, список свобдобных номеров по вместимости
-            listOfAvailableRooms.sort(comparators.byCapasity);
+            sorted = sortCollection(listOfAvailableRooms,comparators.byCapasity);
             // сортировка, список свобдобных номеров по количеству звезд
-            listOfAvailableRooms.sort(comparators.byNumberOfStars);
-            // получение список постоялцев
-            ArrayList<Room> getListOfGuests = command.getListOfGuests();
+            sorted = sortCollection(listOfAvailableRooms,comparators.byNumberOfStars);
+           // получение список постоялцев
+              ArrayList<Room> getListOfGuests = command.getListOfGuests();
             // cортировка,список постоялцев по алфавиту
-            getListOfGuests.sort(comparators.byName);
+            sorted = sortCollection(getListOfGuests,comparators.byName);
             //сортировка по дате выселение
-            getListOfGuests.sort(comparators.byDateOfEviction);
+            sorted = sortCollection(getListOfGuests,comparators.byDateOfEviction);
             //количесво  свободных номеров
-            command.numberOfFreeRooms();
-            //количество гостей
-            command.numberOfGuests();
+              command.numberOfFreeRooms();
+           //количество гостей
+              command.numberOfGuests();
             //добавление доп услуг в номер
             command.addingAdditionalServices(2, List.of(new ServiceType[]{ServiceType.CLEANING,ServiceType.BREAKFAST}));
             command.addingAdditionalServices(3, List.of(new ServiceType[]{ServiceType.SPA}));
@@ -74,23 +77,13 @@ public class HotelManager {
             //сумма за номер , должен оплатить гость
             command.addingAdditionalServices(1, List.of(new ServiceType[]{ServiceType.CLEANING,ServiceType.BREAKFAST}));
             double  a = command.priseColculation(1);
-
-            //System.out.println(a);
             // посмотр 3 последних гостей, номера и дата их прибывание
              ArrayList<Room> cur = (ArrayList<Room>) command.viewTheLastThreeGuests();
 
             //сортировка доп услуг по цене
-            List<ServiceType> serviceTypes = ServiceType.getServiceTypeList();
-            serviceTypes.sort(comparators.bуServicePrise);
-            System.out.println(cur);
-//            for(Room room : getListOfGuests){
-//                    System.out.println(room.getGuestName() +" " + room.getRoomNumber() +" " + dateFormat.format(room.getDateOfOccupation()) + " " + dateFormat.format(room.getDateOfEviction()));
-//            }
-
-//            for (Room room : listOfAvailableRooms) {
-//                System.out.println(room);
-//            }
-
+            ArrayList<ServiceType> serviceTypes = ServiceType.getServiceTypeList();
+            ArrayList <ServiceType> sortedServiceTypes = new ArrayList<>();
+            sortedServiceTypes  = sortCollection(serviceTypes,comparators.bуServicePrise);
 
     }
 }

@@ -3,10 +3,12 @@ package Comparators;
 import Enums.ServiceType;
 import Model.Room;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class Comparators {
-   public  Comparator<Room> byPrise = new Comparator<Room>() {
+   public static Comparator<Room> byPrise = new Comparator<Room>() {
         @Override
         public int compare(Room o1, Room o2) {
             return Double.compare(o1.getPrise(), o2.getPrise());
@@ -25,6 +27,7 @@ public class Comparators {
            return  Integer.compare(o1.getNumberOfStars(), o2.getNumberOfStars());
        }
    };
+
    public  Comparator<Room> byName = new Comparator<Room>() {
        @Override
        public int compare(Room o1, Room o2) {
@@ -44,4 +47,9 @@ public class Comparators {
            return Double.compare(o1.getPrise(), o2.getPrise());
        }
    };
+   public static <T> ArrayList<T>sortCollection(ArrayList<T> collection, Comparator<T> comparator) {
+      ArrayList<T> sorted = new ArrayList<>(collection);
+      sorted.sort(comparator);
+      return sorted;
+   }
 }
