@@ -122,7 +122,7 @@ public class Command {
          for (ServiceType serviceType : serviceTypes){
             sum = sum + serviceType.getPrise();
          }
-         int colDays = (int) ChronoUnit.DAYS.between(dateOfOccupation, dateOfEviction);;
+         int colDays = (int) ChronoUnit.DAYS.between(dateOfOccupation, dateOfEviction);
        return (room.getPrise() + sum)* colDays;
      }
 
