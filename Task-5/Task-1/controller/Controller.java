@@ -1,5 +1,4 @@
 package controller;
-import controller.comparator.Comparators;
 import model.Room;
 import model.RoomManager;
 import view.ConsoleView;
@@ -12,13 +11,12 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-
-import static controller.comparator.Comparators.sortCollection;
+import java.util.stream.Collectors;
 
 public class Controller {
-    Comparators comparators = new Comparators();
     List<Room> currentGuests  = new ArrayList<>();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private ConsoleView consoleView;
@@ -72,8 +70,8 @@ public class Controller {
         String passportNumber = consoleView.getInput("Enter passport number:\n");
         String dateInput = consoleView.getInput("Enter check-in date in the format dd.MM.yyyy:\n");
         Date dateOfOccupation = dateFormat.parse(dateInput);
-         String date = consoleView.getInput("Enter check-out date in the format dd.MM.yyyy:\n");
-         Date dateOfEviction = dateFormat.parse(date);
+        String date = consoleView.getInput("Enter check-out date in the format dd.MM.yyyy:\n");
+        Date dateOfEviction = dateFormat.parse(date);
         room.setOccupied(true);
         room.setGuestName(guestName);
         room.setPassportNumber(passportNumber);
@@ -99,22 +97,21 @@ public class Controller {
     public void displeyListOfAvailableRooms(){
         int number =  Integer.parseInt(consoleView.getInput("Select the option to display, available numbers (1), " +
                 "display available numbers - sorted by price (2), sorted by capacity(3), sorted by number of stars(4)\n"));
-        List<Room> rooms = new ArrayList<>();
-        List<Room> sortedRooms = new ArrayList<>();
-        for (Room room : roomManager.getRooms().values()){
-            if (!room.isOccupied()) rooms.add(room);
-        }
+        List<Room> rooms = roomManager.getRooms().values().stream()
+                .filter(room -> !room.isOccupied())
+                .collect(Collectors.toList());
+        List<Room> sortedRooms = new ArrayList<>(rooms);
         if (number == 1){consoleView.printList(rooms);}
         else if (number == 2){
-            sortedRooms = sortCollection(rooms,Comparators.byPrise);
+            sortedRooms.sort(Comparator.comparingDouble(Room::getPrise));
             consoleView.printList(sortedRooms);
         }
         else if (number == 3){
-            sortedRooms = sortCollection(rooms,comparators.byCapasity);
+            sortedRooms.sort(Comparator.comparingInt(Room::getCapasity));
             consoleView.printList(sortedRooms);
         }
         else if (number == 4){
-            sortedRooms = sortCollection(rooms,comparators.byNumberOfStars);
+            sortedRooms.sort(Comparator.comparingInt(Room::getNumberOfStars));
             consoleView.printList(sortedRooms);
         }
         consoleView.SuccessfulNotification();
@@ -122,19 +119,20 @@ public class Controller {
     public void dispeyListofRooms(){
         int number =  Integer.parseInt(consoleView.getInput("Select the option to display  rooms (1), " +
                 "display  rooms - sorted by price (2), sorted by capacity(3), sorted by number of stars(4)\n"));
-        List<Room> sortedRooms = new ArrayList<>();
+
         List<Room>rooms = roomManager.getAllRooms();
+        List<Room> sortedRooms = new ArrayList<>(rooms);
         if (number == 1){consoleView.printList(rooms);}
         else if (number == 2){
-            sortedRooms = sortCollection(rooms,Comparators.byPrise);
+            sortedRooms.sort(Comparator.comparingDouble(Room::getPrise));
             consoleView.printList(sortedRooms);
         }
         else if (number == 3){
-            sortedRooms = sortCollection(rooms,comparators.byCapasity);
+            sortedRooms.sort(Comparator.comparingInt(Room::getCapasity));
             consoleView.printList(sortedRooms);
         }
         else if (number == 4){
-            sortedRooms = sortCollection(rooms,comparators.byNumberOfStars);
+            sortedRooms.sort(Comparator.comparingInt(Room::getNumberOfStars));
             consoleView.printList(sortedRooms);
         }
         consoleView.SuccessfulNotification();
@@ -143,37 +141,34 @@ public class Controller {
         int number =  Integer.parseInt(consoleView.getInput("Select the option to display list of guests (1), " +
                 "display guests  - sorted by Name(2), sorted by Date Of Eviction(3)\n"));
         List<Room>rooms = roomManager.getAllRooms();
-        List<Room>sortedRooms = new ArrayList<>();
-        List<Room>tmp = new ArrayList<>();
-        for (Room room : rooms){
-            if (room.getGuestName() != null){
-                tmp.add(room);
-            }
-        }
+        List<Room>tmp = rooms.stream()
+                .filter(room -> room.getGuestName()!=null)
+                .collect(Collectors.toList());
+
+        List<Room>sortedRooms = new ArrayList<>(rooms);
         if (number == 1){consoleView.printList(tmp);}
-        else if (number == 2){ sortedRooms = sortCollection(tmp,comparators.byName);  consoleView.printList(sortedRooms);}
-        else if (number == 3) { sortedRooms = sortCollection(tmp,comparators.byDateOfEviction);  consoleView.printList(sortedRooms);}
+        else if (number == 2){ sortedRooms.sort(Comparator.comparing(Room::getGuestName));  consoleView.printList(sortedRooms);}
+        else if (number == 3) { sortedRooms.sort(Comparator.comparing(Room::getDateOfEviction));  consoleView.printList(sortedRooms);}
         consoleView.SuccessfulNotification();
     }
     public void numberOfFreeRooms(){
-        int col = 0 ;
-        List<Room>rooms = roomManager.getAllRooms();
-        for (Room room : rooms){
-            if (room.isOccupied()) col++;
-        }
-        consoleView.display(col);
+        List<Room> rooms = roomManager.getAllRooms();
+        long count = rooms.stream()
+                .filter(room -> !room.isOccupied())
+                .count();
+        consoleView.display(count);
     }
     public void numberOfGests(){
-        int col = 0 ;
         List<Room>rooms = roomManager.getAllRooms();
-        for (Room room : rooms){
-            if (room.getGuestName() != null) col++;
-        }
+        long col = rooms.stream()
+                .filter(x -> x.getGuestName() != null)
+                .count();
+
         consoleView.display(col);
     }
     public void getListOfVailableRoomsInDate() throws ParseException {
         String input = consoleView.getInput("Enter  Date in the format dd.MM.yyyy:\n");
-       Date date = dateFormat.parse(input);
+        Date date = dateFormat.parse(input);
         List<Room> ans = new ArrayList<>();
         List<Room> rooms = roomManager.getAllRooms();
         for (Room room : rooms){
@@ -189,15 +184,14 @@ public class Controller {
     }
     public void priseCalculation(){
         int roomNumber = Integer.parseInt(consoleView.getInput("Inter room number , you want to calculate prise:\n"));
-        double sum = 0;
         double ans = 0;
         Room room = roomManager.getRooms().get(roomNumber);
         LocalDate dateOfOccupation = room.getDateOfOccupation().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dateOfEviction = room.getDateOfEviction().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         List<ServiceType> serviceTypes = room.getServiceTypes();
-        for (ServiceType serviceType : serviceTypes){
-            sum = sum + serviceType.getPrise();
-        }
+        double sum = serviceTypes.stream()
+                .mapToDouble(ServiceType::getPrise)
+                .sum();
         int colDays = (int) ChronoUnit.DAYS.between(dateOfOccupation, dateOfEviction);
         ans = (room.getPrise() + sum)* colDays;
         consoleView.display(ans);
@@ -227,7 +221,7 @@ public class Controller {
         String input = consoleView.getInput("Enter service numbers:\n");
         String[] inputNumbers = input.split("\\s+");
         List<Integer> serviceNumbers = new ArrayList<>();
-        List<ServiceType> serviceTypes = List.of();
+        List<ServiceType> serviceTypes = new ArrayList<>();
         for (String number : inputNumbers){
             serviceNumbers.add(Integer.parseInt(number));
         }
@@ -243,12 +237,12 @@ public class Controller {
         room.addServiceType(serviceTypes);
         consoleView.SuccessfulNotification();
     }
-    public void sortedServiceTypesByPrise(){
+    public void sortedServiceTypesByPrise() {
         List<ServiceType> serviceTypes = ServiceType.getServiceTypeList();
-        List <ServiceType> sortedServiceTypes = new ArrayList<>();
-        sortedServiceTypes  = sortCollection(serviceTypes,comparators.bуServicePrise);
-        consoleView.display(sortedServiceTypes);
+        serviceTypes.sort(Comparator.comparingDouble(ServiceType::getPrise));
+        consoleView.display(serviceTypes);
     }
+
     public void displeyServiceTypes(){
         List<ServiceType> serviceTypes = ServiceType.getServiceTypeList();
         consoleView.display(serviceTypes);
