@@ -25,7 +25,6 @@ public class ChekOutAction implements IAction {
             room.setPassportNumber(null);
             room.setDateOfOccupation(null);
             room.setDateOfEviction(null);
-            // думать надо currentGuests.remove(room);
             consoleView.SuccessfulNotification();
         }
     }
