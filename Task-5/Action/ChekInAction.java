@@ -32,7 +32,6 @@ public class ChekInAction implements IAction {
         room.setPassportNumber(passportNumber);
         room.setDateOfOccupation(dateOfOccupation);
         room.setDateOfEviction(dateOfEviction);
-       //думать надо  currentGuests.add(room);
         consoleView.SuccessfulNotification();
 
     }
