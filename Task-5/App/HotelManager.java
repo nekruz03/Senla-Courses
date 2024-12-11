@@ -2,7 +2,6 @@ package App;
 
 import Contoller.MenuController;
 import model.RoomManager;
-import viev.ConsoleView;
 import util.Builder;
 import util.Navigator;
 

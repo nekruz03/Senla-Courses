@@ -2,12 +2,11 @@ package Action;
 
 import model.Room;
 import model.RoomManager;
-import viev.ConsoleView;
 import util.IAction;
+import viev.ConsoleView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;

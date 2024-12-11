@@ -2,10 +2,8 @@ package Action;
 
 import model.Room;
 import model.RoomManager;
-import viev.ConsoleView;
 import util.IAction;
-
-import java.text.ParseException;
+import viev.ConsoleView;
 
 public class ChekOutAction implements IAction {
     RoomManager roomManager;

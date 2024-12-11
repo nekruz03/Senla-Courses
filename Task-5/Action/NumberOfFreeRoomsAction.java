@@ -2,10 +2,9 @@ package Action;
 
 import model.Room;
 import model.RoomManager;
-import viev.ConsoleView;
 import util.IAction;
+import viev.ConsoleView;
 
-import java.text.ParseException;
 import java.util.List;
 
 public class NumberOfFreeRoomsAction implements IAction {

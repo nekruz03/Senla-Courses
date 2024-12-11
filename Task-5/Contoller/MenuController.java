@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.awt.SystemColor.menu;
-
 public class MenuController {
     private Builder builder;
     private Navigator navigator;

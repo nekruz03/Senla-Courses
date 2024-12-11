@@ -1,8 +1,8 @@
 package Action;
 
 import model.RoomManager;
-import viev.ConsoleView;
 import util.IAction;
+import viev.ConsoleView;
 
 public class DeleteRoomAction implements IAction {
     RoomManager roomManager;

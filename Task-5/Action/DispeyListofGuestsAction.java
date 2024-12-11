@@ -2,10 +2,9 @@ package Action;
 
 import model.Room;
 import model.RoomManager;
-import viev.ConsoleView;
 import util.IAction;
+import viev.ConsoleView;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
