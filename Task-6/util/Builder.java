@@ -28,7 +28,7 @@ public class Builder {
       MenuItem sortedServiceTypesByPrise = new MenuItem("Display,additional services by prise", new SortedServiceTypesByPriseAction(roomManager),null);
       MenuItem exportRoomsFromFile = new MenuItem("Add rooms from file", new ImportRoomsFromFileAction(roomManager),null);
       MenuItem importGuestsFromFileAction = new MenuItem("Import guests from file", new ImportGuestsFromFileAction(roomManager),null);
-      MenuItem exportOfAvailableRoomsAction = new MenuItem("Export available rooms", new ExportOfAvailableRoomsAction(roomManager),null);
+      MenuItem exportOfAvailableRoomsAction = new MenuItem("Export  rooms", new ExportRoomsAction(roomManager),null);
       MenuItem exportGuestsList = new MenuItem("Export goests list",new ExportGuestsList(roomManager),null);
         rootMenu = new Menu("Main Menu", Arrays.asList(addRoomItem, deleteRoomItem, changePrise,changeStatus, changeType,checkInGuest,CheckOutGuest,availableServices,addingAdditionalServices,
                dispeyListofRooms,dispeyListofGuests,displeyListOfAvailableRooms,numberOfFreeRooms,numberOfGests,getListOfVailableRoomsInDate,priseCalculation,viewTheLastThreeGuests,sortedServiceTypesByPrise,exportRoomsFromFile,importGuestsFromFileAction,exportOfAvailableRoomsAction,exportGuestsList));

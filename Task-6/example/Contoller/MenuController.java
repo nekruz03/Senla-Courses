@@ -1,32 +1,37 @@
 package org.example.Contoller;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 import model.Room;
 import model.RoomManager;
-import org.example.Action.ExportOfAvailableRoomsAction;
-import util.Builder;
-import util.Menu;
-import util.MenuItem;
-import util.Navigator;
+import org.example.Action.ExportRoomsAction;
+import org.example.Enum.RoomStatus;
+import org.example.Enum.RoomType;
+import util.*;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class MenuController {
     private Builder builder;
     private Navigator navigator;
     private RoomManager roomManager;
-    List<Room> currentGuests  = new ArrayList<>();
+    List<Room> currentGuests = new ArrayList<>();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     public MenuController(RoomManager roomManager, Navigator navigator, Builder builder) {
         this.builder = new Builder();
         this.navigator = new Navigator();
         this.roomManager = roomManager;
     }
+
     public void run() {
         try {
+           Auxiliary.initializationRoomsFromFile(roomManager);
+           Auxiliary.initializationGuestsFromFile(roomManager);
             builder.buildMenu(roomManager);
             navigator.setCurrentMenu(builder.getRootMenu());
             while (true) {
@@ -38,7 +43,7 @@ public class MenuController {
                 displayMenu(currentMenu);
                 int choice = getUserChoice();
                 if (choice == 6) {
-                    ExportOfAvailableRoomsAction exportOfAvailableRoomsAction = new ExportOfAvailableRoomsAction(roomManager);
+                    ExportRoomsAction exportOfAvailableRoomsAction = new ExportRoomsAction(roomManager);
                     exportOfAvailableRoomsAction.execute();
                 }
                 if (choice == 0) {
@@ -59,23 +64,27 @@ public class MenuController {
         } catch (NumberFormatException e) {
             System.out.println("Ошибка ввода: введено недопустимое число.");
         } catch (ParseException e) {
-            System.out.println("Ошибка формата даты: проверьте правильность ввода даты.");
+            System.out.println("Ошибка формата даты: проверьте правильность ввода даты");
         } catch (Exception e) {
             System.out.println("Произошла непредвиденная ошибка: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private void displayMenu(Menu menu){
+    public void displayMenu(Menu menu) {
         System.out.println("\n" + menu.getTitle());
         for (int i = 0; i < menu.getItems().size(); i++) {
             System.out.println((i + 1) + ". " + menu.getItems().get(i).getTitle());
         }
         System.out.println("0. Exit");
     }
-    private int getUserChoice() {
+
+    public int getUserChoice() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your choice: ");
         return scanner.nextInt();
     }
+
+
+
 }

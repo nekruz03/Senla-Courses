@@ -20,6 +20,7 @@ public class ImportRoomsFromFileAction implements IAction {
         this.roomManager = roomManager;
     }
 
+
     @Override
     public void execute() throws IOException, CsvValidationException {
         CSVReader csvReader = new CSVReaderBuilder(new FileReader("src/main/java/org/example/data/imports/rooms_import.csv"))
