@@ -24,10 +24,7 @@ public class Room {
     private Date dateOfOccupation;
     private  Date dateOfEviction;
     private List<ServiceType> serviceTypes;
-    private  int id;
-    private static int idCounter = 1;
     public Room(int roomNumber, RoomType roomType, RoomStatus roomStatus, double prise, int capasity, int numberOfStars) {
-        this.id = idCounter++;
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomStatus = roomStatus;
@@ -125,13 +122,9 @@ public class Room {
     public String getGuestSurname(){
         return guestSurname;
     }
-    public int getId(){
-        return id;
-    }
     @Override
     public String toString() {
-        return "id: "+ id +
-                ", roomNumber: " + roomNumber +
+        return "roomNumber: " + roomNumber +
                 ", roomStatus: " + roomStatus +
                 ", prise: " + prise +
                 ", roomType: " + roomType +
