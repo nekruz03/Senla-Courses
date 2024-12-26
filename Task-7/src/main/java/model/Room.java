@@ -157,7 +157,10 @@ public class Room {
     public List<ServiceType> getServiceTypes() {
         return serviceTypes;
     }
-    public void addServiceType(List<ServiceType> serviceTypes) {
+       public void addServiceType(List<ServiceType> serviceTypes) {
+        if (this.serviceTypes == null) {
+            this.serviceTypes = new ArrayList<>();
+        }
         for (ServiceType serviceType : serviceTypes) {
             this.serviceTypes.add(serviceType);
         }
