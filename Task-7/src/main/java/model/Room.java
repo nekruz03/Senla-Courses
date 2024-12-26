@@ -28,7 +28,6 @@ public class Room {
     private int numberOfStars;
     private Date dateOfOccupation;
     private  Date dateOfEviction;
-    @JsonIgnore
     private List<ServiceType> serviceTypes;
     private List<GuestRecord> guestRecords;
     public Room(int roomNumber, RoomType roomType, RoomStatus roomStatus, double prise, int capasity, int numberOfStars) {
