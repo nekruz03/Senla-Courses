@@ -1,0 +1,61 @@
+[ {
+  "roomNumber" : 1,
+  "roomStatus" : "SERVICED",
+  "prise" : 1500.0,
+  "roomType" : "STANDARD",
+  "isOccupied" : true,
+  "guestName" : "Sasha",
+  "guestSurname" : "Polikov",
+  "passportNumber" : "A2344",
+  "capasity" : 1,
+  "numberOfStars" : 3,
+  "dateOfOccupation" : "01.02.2024",
+  "dateOfEviction" : "01.03.2024",
+  "serviceTypes" : [ "BREAKFAST", "LYNCH", "SPA", "DINNER" ],
+  "guestRecords" : [ {
+    "guestName" : "Nekruz",
+    "guestSurname" : "Nazirjonov",
+    "passportNumber" : "A234234",
+    "dateOfOccupation" : "01.02.2024",
+    "dateOfEviction" : "02.02.2024"
+  }, {
+    "guestName" : "Sasha",
+    "guestSurname" : "Polikov",
+    "passportNumber" : "A2344",
+    "dateOfOccupation" : "01.02.2024",
+    "dateOfEviction" : "01.03.2024"
+  } ],
+  "occupied" : true
+}, {
+  "roomNumber" : 2,
+  "roomStatus" : "REPAIRABLE",
+  "prise" : 2000.0,
+  "roomType" : "DELUXE",
+  "isOccupied" : false,
+  "guestName" : null,
+  "guestSurname" : null,
+  "passportNumber" : null,
+  "capasity" : 2,
+  "numberOfStars" : 3,
+  "dateOfOccupation" : null,
+  "dateOfEviction" : null,
+  "serviceTypes" : null,
+  "guestRecords" : [ ],
+  "occupied" : false
+}, {
+  "roomNumber" : 3,
+  "roomStatus" : "SERVICED",
+  "prise" : 4000.0,
+  "roomType" : "VIP",
+  "isOccupied" : false,
+  "guestName" : null,
+  "guestSurname" : null,
+  "passportNumber" : null,
+  "capasity" : 2,
+  "numberOfStars" : 5,
+  "dateOfOccupation" : null,
+  "dateOfEviction" : null,
+  "serviceTypes" : null,
+  "guestRecords" : [ ],
+  "occupied" : false
+} ]
