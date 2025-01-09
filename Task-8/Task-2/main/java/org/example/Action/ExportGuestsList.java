@@ -1,5 +1,6 @@
 package org.example.Action;
 
+import annotation.OwnInject;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExportGuestsList implements IAction {
+    @OwnInject
     private RoomManager roomManager;
     private ConsoleView consoleView = new ConsoleView();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");

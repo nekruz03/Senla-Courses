@@ -53,11 +53,10 @@ public class Builder {
     private ExportRoomsAction exportRoomsAction;
     @OwnInject
     private ExportGuestsList exportGuestsListAction;
-
     public void buildMenu(RoomManager roomManager) throws IllegalAccessException {
         DI di = DI.getInstance();
         di.registerBean(RoomManager.class, roomManager);
-        di.infectDependencies(this);
+        DI.infectDependencies(this);
         rootMenu = new Menu("Main Menu", Arrays.asList(
                 new MenuItem("Add Room", addRoomAction, null),
                 new MenuItem("Delete Room", deleteRoomAction, null),

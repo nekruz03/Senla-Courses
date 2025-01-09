@@ -7,6 +7,7 @@ import org.example.Contoller.MenuController;
 import util.Builder;
 import util.DI.DI;
 import util.Navigator;
+import util.serialization.RoomManagerSerialization;
 import viev.ConsoleView;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class HotelManager {
         di.registerBean(Builder.class, builder);
         Navigator navigator = new Navigator();
         di.registerBean(Navigator.class, navigator);
+        RoomManagerSerialization roomManagerSerialization = new RoomManagerSerialization();
+        di.registerBean(RoomManagerSerialization.class, roomManagerSerialization);
         ConsoleView consoleView = new ConsoleView();
         di.registerBean(ConsoleView.class, consoleView);
         di.registerBean(AddRoomAction.class, new AddRoomAction());

@@ -8,9 +8,7 @@ import util.*;
 import util.DI.DI;
 import util.serialization.RoomManagerSerialization;
 import viev.ConsoleView;
-
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 public class MenuController {
     @OwnInject
@@ -21,16 +19,16 @@ public class MenuController {
     private RoomManager roomManager;
     @OwnInject
     private ExportRoomsAction exportRoomsAction;
-    List<Room> currentGuests = new ArrayList<>();
+    @OwnInject
+            RoomManagerSerialization roomManagerSerialization;
     @OwnInject
     ConsoleView consoleView;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     public MenuController() throws IllegalAccessException {
         DI.infectDependencies(this);
     }
     public void run() {
         try {
-            RoomManagerSerialization.loadState(roomManager);
+            roomManagerSerialization.loadState();
             builder.buildMenu(roomManager);
             navigator.setCurrentMenu(builder.getRootMenu());
             while (true) {
@@ -46,7 +44,7 @@ public class MenuController {
                 }
                 if (choice == 0) {
                     System.out.println("Exiting...");
-                    RoomManagerSerialization.saveState(roomManager);
+                    roomManagerSerialization.saveState();
                     break;
                 } else if (choice > 0 && choice <= currentMenu.getItems().size()) {
                     MenuItem selectedItem = currentMenu.getItems().get(choice - 1);

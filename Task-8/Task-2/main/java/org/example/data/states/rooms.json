@@ -1,7 +1,7 @@
 [ {
   "roomNumber" : 1,
   "roomStatus" : "SERVICED",
-  "prise" : 1500.0,
+  "prise" : 50000.0,
   "roomType" : "STANDARD",
   "isOccupied" : true,
   "guestName" : "Sasha",
@@ -25,6 +25,7 @@
     "dateOfOccupation" : "01.02.2024",
     "dateOfEviction" : "01.03.2024"
   } ],
+  "roomManager" : null,
   "occupied" : true
 }, {
   "roomNumber" : 2,
@@ -41,6 +42,7 @@
   "dateOfEviction" : null,
   "serviceTypes" : null,
   "guestRecords" : [ ],
+  "roomManager" : null,
   "occupied" : false
 }, {
   "roomNumber" : 3,
@@ -57,5 +59,6 @@
   "dateOfEviction" : null,
   "serviceTypes" : null,
   "guestRecords" : [ ],
+  "roomManager" : null,
   "occupied" : false
 } ]
