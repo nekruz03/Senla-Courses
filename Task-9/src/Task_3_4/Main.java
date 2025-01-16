@@ -8,6 +8,7 @@ public class Main {
         TimePrint timePrint  = new TimePrint(15);
         producer.start();
         consumer.start();
+        timePrint.setDaemon(true);
         timePrint.start();
     }
 }
