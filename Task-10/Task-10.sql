@@ -71,11 +71,21 @@ FROM laptop
 JOIN product On laptop.model = product.model
 WHERE  laptop.hd >= 100;
 -- 7 Найти номера моделей и цены всех продуктов (любого типа), выпущенных производителем B (латинская буква).
-SELECT pc.model, pc.price FROM  pc JOIN product ON  pc.model = product.model WHERE maker LIKE 'A%'
+-- Добавляю производителей
+INSERT INTO product VALUES ('BenQ', 'Zowie XL2546', 'Printer');
+INSERT INTO printer (model, color, type, price) VALUES ('Zowie XL2546', 'n', 'Laser', 350.00);
+
+INSERT INTO product VALUES ('BQ', 'Aurora', 'Laptop');
+INSERT INTO laptop (model, speed, ram, hd, price, screen) VALUES ('Aurora', 2600, 8, 256, 750.00, 14);
+
+INSERT INTO laptop (model, speed, ram, hd, price, screen)
+VALUES ('QuietComfort Laptop', 2600, 16, 512, 1400.00, 15);
+
+SELECT pc.model, pc.price FROM  pc JOIN product ON  pc.model = product.model WHERE maker LIKE 'B%'
 UNION
-SELECT  laptop.model, laptop.price FROM laptop  JOIN  product ON laptop.model = product.model WHERE maker LIKE 'A%'
+SELECT  laptop.model, laptop.price FROM laptop  JOIN  product ON laptop.model = product.model WHERE maker LIKE 'B%'
 UNION
-SELECT printer.model, printer.price FROM  printer JOIN product ON printer.model = product.model WHERE maker LIKE 'A%';
+SELECT printer.model, printer.price FROM  printer JOIN product ON printer.model = product.model WHERE maker LIKE 'B%';
 --8 Найти производителя, выпускающего ПК, но не ноутбуки.
 -- для проверки, я добавил:
 INSERT  INTO product VALUES ('Lenovo','Legion','PC');
