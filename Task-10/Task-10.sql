@@ -78,9 +78,9 @@ INSERT INTO printer (model, color, type, price) VALUES ('Zowie XL2546', 'n', 'La
 INSERT INTO product VALUES ('BQ', 'Aurora', 'Laptop');
 INSERT INTO laptop (model, speed, ram, hd, price, screen) VALUES ('Aurora', 2600, 8, 256, 750.00, 14);
 
-INSERT INTO laptop (model, speed, ram, hd, price, screen)
-VALUES ('QuietComfort Laptop', 2600, 16, 512, 1400.00, 15);
-
+INSERT INTO product VALUES ('BQQ', 'Model_B', 'PC');
+INSERT INTO pc (model, speed, ram, hd, cd, price) VALUES ('Model_B', 3200, 16, 512, '12x', 1200.00);
+-- Запрос, по заданию
 SELECT pc.model, pc.price FROM  pc JOIN product ON  pc.model = product.model WHERE maker LIKE 'B%'
 UNION
 SELECT  laptop.model, laptop.price FROM laptop  JOIN  product ON laptop.model = product.model WHERE maker LIKE 'B%'
