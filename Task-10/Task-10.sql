@@ -64,12 +64,12 @@ SELECT (model , hd, screen) FROM laptop where price::numeric > 1000;
 --4 Найти все записи таблицы Printer для цветных принтеров.
 SELECT * from printer WHERE color = 'y';
 -- 5 Найти номер модели, скорость и размер жесткого диска для ПК, имеющих скорость cd 12x или 24x и цену менее 600 долларов.
-SELECT (pc.model, pc.speed, pc.hd) FROM pc WHERE  cd = '12x' or cd = '24x' and price::numeric > 600;
+SELECT (pc.model, pc.speed, pc.hd) FROM pc WHERE  cd = '12x' or cd = '24x' and price::numeric < 600;
 -- 6 Указать производителя и скорость для тех ноутбуков, которые имеют жесткий диск объемом не менее 100 Гбайт.
 SELECT product.maker, laptop.speed
 FROM laptop
 JOIN product On laptop.model = product.model
-WHERE  laptop.speed >= 100;
+WHERE  laptop.hd >= 100;
 -- 7 Найти номера моделей и цены всех продуктов (любого типа), выпущенных производителем B (латинская буква).
 SELECT pc.model, pc.price FROM  pc JOIN product ON  pc.model = product.model WHERE maker LIKE 'A%'
 UNION
