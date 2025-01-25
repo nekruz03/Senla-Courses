@@ -1,7 +1,7 @@
-INSERT INTO room VALUES (1,'SERVICED',100,'STANDARD',2,2),
-                        (2,'SERVICED',200,'VIP',1,5),
-                        (3,'REPAIRABLE',500,'STANDARD',4,2),
-                        (7,'SERVICED',200,'STANDARD',3,2);
+INSERT INTO room VALUES (1,'SERVICED','STANDARD',2, 2, 100),
+                        (2,'SERVICED','VIP',1, 5, 200),
+                        (3,'REPAIRABLE','STANDARD', 4, 2, 500),
+                        (7,'SERVICED','STANDARD', 3, 2, 200);
 
 INSERT INTO guest (guest_name,guest_surname,passport_number) VALUES
                         ( 'Nekuz','Nazirjonov','A34311'),
