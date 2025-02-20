@@ -13,7 +13,7 @@ public class RoomService {
     @OwnInject
     private ConsoleView consoleView;
     @OwnInject
-    private ServiceTypeService serviceType_Service;
+    private ServiceTypeService serviceTypeService;
     @OwnInject
     private RoomDao roomDao;
     @OwnInject
@@ -33,10 +33,11 @@ public class RoomService {
             return room.getRoomNumber();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error adding room", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
+        return 0;
     }
 
     public int updateRoom() throws SQLException {
@@ -76,14 +77,15 @@ public class RoomService {
             return existingRoom.getRoomNumber();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error updating room", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
+        return 0;
     }
 
 
-    public void find_by_id(int id) throws SQLException {
+    public void findByid(int id) throws SQLException {
         if (connection == null) {
             throw new SQLException("Error: No connection to the database.");
         }
@@ -110,7 +112,7 @@ public class RoomService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error retrieving list of rooms", e);
+           e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -132,7 +134,7 @@ public class RoomService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error sorting rooms by number", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -154,7 +156,7 @@ public class RoomService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error sorting rooms by price", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -175,7 +177,7 @@ public class RoomService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error deleting room", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -193,18 +195,16 @@ public class RoomService {
                 connection.setAutoCommit(false);
             }
 
-            serviceType_Service.getAllServiceTypes();
+            serviceTypeService.getAllServiceTypes();
             roomDao.addServicesInToRoom();
 
             connection.commit();
         } catch (SQLException | RuntimeException e) {
-            // Если произошла ошибка, откатываем изменения
             if (!connection.getAutoCommit()) {
                 connection.rollback();
             }
-            throw new SQLException("Error adding additional services", e);
+            e.printStackTrace();
         } finally {
-            // Восстанавливаем первоначальное состояние autoCommit
             connection.setAutoCommit(previousAutoCommit);
         }
     }
@@ -224,7 +224,7 @@ public class RoomService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error calculating total cost", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -241,7 +241,7 @@ public class RoomService {
             consoleView.display("Number of guests in room: " + kol);
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error counting the number of guests in the room", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }

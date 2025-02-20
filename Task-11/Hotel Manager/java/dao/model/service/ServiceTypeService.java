@@ -29,7 +29,7 @@ public class ServiceTypeService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error adding service type", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -52,7 +52,7 @@ public class ServiceTypeService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error retrieving list of service types", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -80,7 +80,7 @@ public class ServiceTypeService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error updating service type", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -113,7 +113,7 @@ public class ServiceTypeService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error deleting service type", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }

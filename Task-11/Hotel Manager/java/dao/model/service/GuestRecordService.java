@@ -15,10 +15,10 @@ import java.util.List;
 public class GuestRecordService {
 
     @OwnInject
-    GuestService guest_Service;
+    GuestService guestService;
 
     @OwnInject
-    GuestRecordDao guest_RecordDao;
+    GuestRecordDao guestRecordDao;
 
     @OwnInject
     RoomDao roomDao;
@@ -34,13 +34,13 @@ public class GuestRecordService {
         }
         connection.setAutoCommit(false);
         try {
-            int id = guest_Service.addGuest();
-            GuestRecord guestRecord = guest_RecordDao.getGuestRecordFromConsole(id);
-            guest_RecordDao.save(guestRecord);
+            int id = guestService.addGuest();
+            GuestRecord guestRecord = guestRecordDao.getGuestRecordFromConsole(id);
+            guestRecordDao.save(guestRecord);
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error checking in guest", e);
+           e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -56,15 +56,16 @@ public class GuestRecordService {
 
             Room roomCheck = roomDao.findById(room.getRoomNumber());
             if (roomCheck == null ) throw new SQLException("Error: Room not found.");
-            guest_RecordDao.deleteGuestRecord(room);
+            guestRecordDao.deleteGuestRecord(room);
             connection.commit();
             return room.getRoomNumber();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error checking out guest", e);
+          e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
+        return 0;
     }
 
     public void updateGuestRecord() throws SQLException, ParseException {
@@ -75,14 +76,14 @@ public class GuestRecordService {
             connection.setAutoCommit(false);
             String guestInput = consoleView.getInput("Enter guest record id: ");
             int guestId = Integer.parseInt(guestInput);
-            GuestRecord recordCheck = guest_RecordDao.findById(guestId);
+            GuestRecord recordCheck = guestRecordDao.findById(guestId);
             if (recordCheck == null) throw new SQLException("Error: Record not found.");
-            GuestRecord guestRecord = guest_RecordDao.getGuestRecordFromConsole(guestId);
-            guest_RecordDao.update(guestRecord);
+            GuestRecord guestRecord = guestRecordDao.getGuestRecordFromConsole(guestId);
+            guestRecordDao.update(guestRecord);
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error updating guest record", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -94,7 +95,7 @@ public class GuestRecordService {
         }
         String guestInput = consoleView.getInput("Enter guest record id: ");
         int guestRecordId = Integer.parseInt(guestInput);
-        GuestRecord guestRecord = guest_RecordDao.findById(guestRecordId);
+        GuestRecord guestRecord = guestRecordDao.findById(guestRecordId);
         if (guestRecord == null) {
             throw new SQLException("Guest record not found");
         } else {
@@ -108,7 +109,7 @@ public class GuestRecordService {
         }
         try {
             connection.setAutoCommit(false);
-            List<GuestRecord> guestRecords = guest_RecordDao.findAll();
+            List<GuestRecord> guestRecords = guestRecordDao.findAll();
             if (guestRecords.isEmpty()) {
                 throw new RuntimeException("No guest records found");
             } else {
@@ -119,7 +120,7 @@ public class GuestRecordService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error retrieving guest records", e);
+           e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }

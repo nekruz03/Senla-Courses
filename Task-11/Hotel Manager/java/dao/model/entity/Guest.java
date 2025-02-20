@@ -1,22 +1,20 @@
 package dao.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 public class Guest {
     private int id;
-    private String guest_name;
-    private String guest_surname;
-    private String passport_number;
-    public Guest(int id, String guest_name, String guest_surname, String passport_number) {
+    private String guestName;
+    private String guestSurname;
+    private String passportNumber;
+    public Guest(int id, String guestName, String guestSurname, String passportNumber) {
         this.id  = id;
-        this.guest_name = guest_name;
-        this.guest_surname = guest_surname;
-        this.passport_number = passport_number;
+        this.guestName = guestName;
+        this.guestSurname = guestSurname;
+        this.passportNumber = passportNumber;
     }
-    public Guest( String guest_name, String guest_surname, String passport_number) {
-        this.guest_name = guest_name;
-        this.guest_surname = guest_surname;
-        this.passport_number = passport_number;
+    public Guest( String guest_name, String guestSurname, String passportNumber) {
+        this.guestName = guest_name;
+        this.guestSurname = guestSurname;
+        this.passportNumber = passportNumber;
     }
 
     public int getId() {
@@ -27,37 +25,37 @@ public class Guest {
         this.id = id;
     }
 
-    public String getGuest_name() {
-        return guest_name;
+    public String getGuestName() {
+        return guestName;
     }
 
-    public void setGuest_name(String guest_name) {
-        this.guest_name = guest_name;
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
     }
 
-    public String getGuest_surname() {
-        return guest_surname;
+    public String getGuestSurname() {
+        return guestSurname;
     }
 
-    public void setGuest_surname(String guest_surname) {
-        this.guest_surname = guest_surname;
+    public void setGuestSurname(String guestSurname) {
+        this.guestSurname = guestSurname;
     }
 
-    public String getPassport_number() {
-        return passport_number;
+    public String getPassportNumber() {
+        return passportNumber;
     }
 
-    public void setPassport_number(String passport_number) {
-        this.passport_number = passport_number;
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
     }
 
     @Override
     public String toString() {
         return "GuestRecord{" +
                 "id=" + id +
-                ", guest_name='" + guest_name + '\'' +
-                ", guest_surname='" + guest_surname + '\'' +
-                ", passport_number='" + passport_number + '\'' +
+                ", guest_name='" + guestName + '\'' +
+                ", guest_surname='" + guestSurname + '\'' +
+                ", passport_number='" + passportNumber + '\'' +
                 '}';
     }
 }

@@ -29,15 +29,15 @@ public class GuestDao implements GenericDao<Guest> {
     public int save(Guest guestEntity) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_GUEST)) {
 
-            preparedStatement.setString(1, guestEntity.getGuest_name());
-            preparedStatement.setString(2, guestEntity.getGuest_surname());
-            preparedStatement.setString(3, guestEntity.getPassport_number());
+            preparedStatement.setString(1, guestEntity.getGuestName());
+            preparedStatement.setString(2, guestEntity.getGuestSurname());
+            preparedStatement.setString(3, guestEntity.getPassportNumber());
 
             ResultSet guestResult = preparedStatement.executeQuery();
             if (guestResult.next()) {
                 return guestResult.getInt("id");
             } else {
-                throw new SQLException("Error while saving guest: " + guestEntity.getGuest_name());
+                throw new SQLException("Error while saving guest: " + guestEntity.getGuestName());
             }
         } catch (SQLException e) {
             throw new RuntimeException("Database error while saving guest", e);
@@ -49,9 +49,9 @@ public class GuestDao implements GenericDao<Guest> {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_GUEST)) {
 
-            preparedStatement.setString(1, entity.getGuest_name());
-            preparedStatement.setString(2, entity.getGuest_surname());
-            preparedStatement.setString(3, entity.getPassport_number());
+            preparedStatement.setString(1, entity.getGuestName());
+            preparedStatement.setString(2, entity.getGuestSurname());
+            preparedStatement.setString(3, entity.getPassportNumber());
             preparedStatement.setInt(4, entity.getId());
 
             int affectedRows = preparedStatement.executeUpdate();

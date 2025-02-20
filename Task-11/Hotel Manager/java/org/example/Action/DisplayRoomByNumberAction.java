@@ -19,6 +19,6 @@ public class DisplayRoomByNumberAction implements IAction {
     public void execute() throws ParseException, IOException, CsvValidationException, SQLException {
         String roomNumberInput = consoleView.getInput("Enter room number: ");
         int roomNumber = Integer.parseInt(roomNumberInput);
-        roomService.find_by_id(roomNumber);
+        roomService.findByid(roomNumber);
     }
 }

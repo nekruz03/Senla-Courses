@@ -30,7 +30,7 @@ public class GuestService {
         try {
             Guest guest = guestDao.getGuestFromConsole();
 
-            if (guestDao.guestExists(guest.getPassport_number())) {
+            if (guestDao.guestExists(guest.getPassportNumber())) {
                 throw new SQLException("Guest with this passport number already exists.");
             }
 
@@ -42,10 +42,11 @@ public class GuestService {
             if (!connection.getAutoCommit()) {
                 connection.rollback();
             }
-            throw new SQLException("Error adding guest", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(previousAutoCommit);
         }
+        return 0;
     }
 
 
@@ -60,7 +61,7 @@ public class GuestService {
             Guest guest = guestDao.getGuestFromConsole();
 
             Guest checkGuest = guestDao.findById(guestId);
-            if ( checkGuest.getPassport_number() == null) {
+            if ( checkGuest== null) {
                 throw new SQLException("Guest not found");}
 
             guest.setId(guestId);
@@ -69,10 +70,11 @@ public class GuestService {
             return guest.getId();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error updating guest", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
+        return 0;
     }
 
     public void findById(int id) throws SQLException {
@@ -80,7 +82,7 @@ public class GuestService {
             throw new SQLException("Error: No connection to the database.");
         }
         Guest guest = guestDao.findById(id);
-        if (guest.getPassport_number() == null) {
+        if (guest == null) {
             throw new SQLException("Guest not found");
         } else {
             consoleView.print(guest.toString());
@@ -104,7 +106,7 @@ public class GuestService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error retrieving guests", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
@@ -117,10 +119,9 @@ public class GuestService {
         try {
             connection.setAutoCommit(false);
             String guestInput = consoleView.getInput("Enter Guest id: ");
-
             int guestId = Integer.parseInt(guestInput);
             Guest guest = guestDao.findById(guestId);
-            if ( guest.getGuest_name() == null) {
+            if ( guest == null) {
                 throw new SQLException("Guest not found");
             } else {
                 guestDao.delete(guest);
@@ -128,7 +129,7 @@ public class GuestService {
             connection.commit();
         } catch (SQLException | RuntimeException e) {
             connection.rollback();
-            throw new SQLException("Error deleting guest", e);
+            e.printStackTrace();
         } finally {
             connection.setAutoCommit(true);
         }
